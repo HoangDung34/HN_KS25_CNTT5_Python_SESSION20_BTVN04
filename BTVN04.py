@@ -59,7 +59,7 @@ def display_roster(roster_list):
 
         print(f"{player['player_id']:<8} | {name:<20} | {player['role']:<15} | {player['salary']:<12,.1f} | {status}")
 
-def sign_player(roster_list):
+def add_player(roster_list):
     print("--- CHIÊU MỘ TUYỂN THỦ MỚI ---")
 
     player_id = input("Nhập mã tuyển thủ: ").strip().upper()
@@ -93,27 +93,27 @@ def sign_player(roster_list):
 
     logging.info(f"Signed new player {name} with salary {salary}")
 
-def update_player_status(roster_list):
+def update_player(roster_list):
     print("--- CẬP NHẬT LƯƠNG & TRẠNG THÁI THI ĐẤU ---")
 
     player_id = input("Nhập mã tuyển thủ cần cập nhật: ").strip().upper()
-    player_found = None
+    flag = None
 
     for player in roster_list:
         if player["player_id"] == player_id:
-            player_found = player
+            flag = player
             break
 
-    if not player_found:
+    if not flag:
         print(f"Không tìm thấy tuyển thủ mang mã {player_id}")
 
         logging.warning(f"Failed to update player - Player ID {player_id} not found")
         return
 
-    print(f"Tuyển thủ: {player_found['name']}")
-    print(f"Vị trí: {player_found['role']}")
-    print(f"Lương hiện tại: {player_found['salary']}")
-    print(f"Trạng thái hiện tại: {player_found['status']}")
+    print(f"Tuyển thủ: {flag['name']}")
+    print(f"Vị trí: {flag['role']}")
+    print(f"Lương hiện tại: {flag['salary']}")
+    print(f"Trạng thái hiện tại: {flag['status']}")
 
     print("""
         1. Cập nhật lương
@@ -133,8 +133,8 @@ def update_player_status(roster_list):
                         print("Lương phải là số dương")
                         continue
 
-                    old_salary = player_found["salary"]
-                    player_found["salary"] = new_salary
+                    old_salary = flag["salary"]
+                    flag["salary"] = new_salary
 
                     logging.info(f"Updated player {player_id} salary from {old_salary} to {new_salary}")
 
@@ -152,20 +152,20 @@ def update_player_status(roster_list):
 
             status_choose = input("Nhập lựa chọn trạng thái (1-2): ")
 
-            old_status = player_found["status"]
+            old_status = flag["status"]
 
             match status_choose:
                 case "1":
-                    player_found["status"] = "Active"
+                    flag["status"] = "Active"
                 case "2":
-                    player_found["status"] = "Benched"
+                    flag["status"] = "Benched"
                 case "3":
                     return
                 case _:
                     print("Lựa chọn trạng thái không hợp lệ")
                     return
 
-            logging.info(f"Updated player {player_id} status from {old_status} to {player_found['status']}")
+            logging.info(f"Updated player {player_id} status from {old_status} to {flag['status']}")
 
             print(f"Thành công: Đã cập nhật trạng thái cho tuyển thủ {player_id}")
         case "3":
@@ -223,9 +223,9 @@ def main():
             case "1":
                 display_roster(roster)
             case "2":
-                sign_player(roster)
+                add_player(roster)
             case "3":
-                update_player_status(roster)
+                update_player(roster)
             case "4":
                 generate_payroll_report(roster)
             case "5":
