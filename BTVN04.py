@@ -79,7 +79,7 @@ def add_player(roster_list):
             salary = float(input("Nhập mức lương hàng tháng: "))
 
             if salary <= 0:
-                print("Lương phải là số dương. Vui lòng nhập lại.")
+                print("Lương phải là số dương. Vui lòng nhập lại")
                 continue
             break
         except ValueError:
@@ -157,15 +157,15 @@ def update_player(roster_list):
             match status_choose:
                 case "1":
                     flag["status"] = "Active"
+                    logging.info(f"Updated player {player_id} status from {old_status} to {flag['status']}")
                 case "2":
                     flag["status"] = "Benched"
+                    logging.info(f"Updated player {player_id} status from {old_status} to {flag['status']}")
                 case "3":
                     return
                 case _:
                     print("Lựa chọn trạng thái không hợp lệ")
                     return
-
-            logging.info(f"Updated player {player_id} status from {old_status} to {flag['status']}")
 
             print(f"Thành công: Đã cập nhật trạng thái cho tuyển thủ {player_id}")
         case "3":
@@ -194,7 +194,7 @@ def generate_payroll_report(roster_list):
 
             print(f"{player['player_id']:<8} | {player['name']:<15} | {player['status']:<10} | {player['salary']:<12,.1f} | {actual_pay:,.1f}")
     except KeyError as error:
-        print("Lỗi: Một tuyển thủ đang bị thiếu dữ liệu.")
+        print("Lỗi: Một tuyển thủ đang bị thiếu dữ liệu")
 
         logging.error(f"Missing key while generating payroll report: {error}")
 
@@ -230,11 +230,11 @@ def main():
             case "4":
                 generate_payroll_report(roster)
             case "5":
-                logging.info("System shutdown.")
+                logging.info("System shutdown")
                 print("Thoát chương trình")
                 break
             case _:
-                print("Lựa chọn không hợp lệ.")
+                print("Lựa chọn không hợp lệ")
 
 if __name__ == "__main__":
     main()
