@@ -171,7 +171,8 @@ def update_player(roster_list):
         case "3":
             return
         case _:
-            print("Lựa chọn không hợp lệ.")
+            print("Lựa chọn không hợp lệ")
+            return
 
 def generate_payroll_report(roster_list):
     print("--- BÁO CÁO QUỸ LƯƠNG HÀNG THÁNG ---")
@@ -201,7 +202,7 @@ def generate_payroll_report(roster_list):
 
     print("---------------------------------------------------------------------------------------------------------------")
 
-    print(f"Tổng quỹ lương hàng tháng: {total:,}")
+    print(f"Tổng quỹ lương hàng tháng: {total:,.1f}")
 
     logging.info(f"Generated monthly payroll report. Total: {total}")
 
